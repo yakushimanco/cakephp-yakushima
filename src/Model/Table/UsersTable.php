@@ -84,13 +84,11 @@ class UsersTable extends BaseUsersTable
         $validator
             ->scalar('stripe_account')
             ->maxLength('stripe_account', 255)
-            ->requirePresence('stripe_account', 'create')
             ->notEmpty('stripe_account');
 
         $validator
             ->scalar('stripe_customer')
             ->maxLength('stripe_customer', 255)
-            ->requirePresence('stripe_customer', 'create')
             ->notEmpty('stripe_customer');
 
         return $validator;
