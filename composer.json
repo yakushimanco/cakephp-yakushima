@@ -1,0 +1,24 @@
+{
+    "name": "Yakushima/Yakushima",
+    "description": "Yakushima plugin for CakePHP",
+    "type": "cakephp-plugin",
+    "license": "MIT",
+    "require": {
+        "cakephp/cakephp": "^3.5",
+        "cakedc/users": "^7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.7.14|^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Yakushima\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Yakushima\\Test\\": "tests/",
+            "Cake\\Test\\": "vendor/cakephp/cakephp/tests/"
+        }
+    }
+}
