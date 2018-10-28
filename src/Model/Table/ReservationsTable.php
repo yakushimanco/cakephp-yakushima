@@ -1,9 +1,14 @@
 <?php
 namespace Yakushima\Model\Table;
 
+use ArrayObject;
+use Cake\Datasource\EntityInterface;
+use Cake\Event\Event;
+use Cake\Log\Log;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
 
 /**
@@ -87,5 +92,17 @@ class ReservationsTable extends Table
         $rules->add($rules->existsIn(['schedule_id'], 'Schedules'));
 
         return $rules;
+    }
+
+    public function afterSave(Event $event, EntityInterface $entity, ArrayObject $options)
+    {
+        $table = TableRegistry::getTableLocator()->get('Rooms');
+        $room = $table->newEntity([
+            'reservation_id' => $entity->get('id'),
+            'name' => uniqid(),
+            'start' => null,
+            'end' => null,
+        ]);
+        $table->save($room);
     }
 }
