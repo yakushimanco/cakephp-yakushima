@@ -1,5 +1,5 @@
 {
-    "name": "Yakushima/Yakushima",
+    "name": "yakushimanco/cakephp-yakushima",
     "description": "Yakushima plugin for CakePHP",
     "type": "cakephp-plugin",
     "license": "MIT",
