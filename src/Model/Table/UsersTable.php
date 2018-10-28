@@ -2,8 +2,13 @@
 
 namespace Yakushima\Model\Table;
 
+use ArrayObject;
+use Cake\Event\Event;
 use Cake\Validation\Validator;
 use CakeDC\Users\Model\Table\UsersTable as BaseUsersTable;
+use Stripe\Account;
+use Stripe\Customer;
+use Yakushima\Model\Entity\User;
 
 /**
  * Users Model
@@ -129,5 +134,20 @@ class UsersTable extends BaseUsersTable
             ]);
 
         return $query;
+    }
+
+    public function beforeSave(Event $event, User $user, ArrayObject $options)
+    {
+        if ($user->isNew()) {
+            $account = Account::create([
+                'country' => "JP",
+                'email' => $user->get('email'),
+                'type' => 'custom',
+            ]);
+            $customer = Customer::create();
+
+            $user->set('stripe_account', $account->id);
+            $user->set('stripe_customer', $customer->id);
+        }
     }
 }
