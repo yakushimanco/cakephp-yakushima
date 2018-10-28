@@ -25,6 +25,8 @@ use CakeDC\Users\Model\Table\UsersTable as BaseUsersTable;
  */
 class UsersTable extends BaseUsersTable
 {
+    const ROLE_FORTUNE_TELLER = 'fortune-teller';
+    
     /**
      * Initialize method
      *
@@ -87,5 +89,45 @@ class UsersTable extends BaseUsersTable
             ->notEmpty('stripe_customer');
 
         return $validator;
+    }
+
+    /**
+     * Returns the query as passed.
+     *
+     * By default findAll() applies no conditions, you
+     * can override this method in subclasses to modify how `find('all')` works.
+     *
+     * @param \Cake\ORM\Query $query The query to find with
+     * @param array $options The options to use for the find
+     * @return \Cake\ORM\Query The query builder
+     */
+    public function findUsers(Query $query, array $options)
+    {
+        $query
+            ->where([
+                'Users.role' => self::ROLE_USER,
+            ]);
+
+        return $query;
+    }
+
+    /**
+     * Returns the query as passed.
+     *
+     * By default findAll() applies no conditions, you
+     * can override this method in subclasses to modify how `find('all')` works.
+     *
+     * @param \Cake\ORM\Query $query The query to find with
+     * @param array $options The options to use for the find
+     * @return \Cake\ORM\Query The query builder
+     */
+    public function findFortuneTellers(Query $query, array $options)
+    {
+        $query
+            ->where([
+                'Users.role' => self::ROLE_FORTUNE_TELLER,
+            ]);
+
+        return $query;
     }
 }
