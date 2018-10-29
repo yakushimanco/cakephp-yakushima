@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Middleware;
+namespace Yakushima\Middleware;
 
 use Cake\Core\InstanceConfigTrait;
 use Cake\Http\ServerRequest;
