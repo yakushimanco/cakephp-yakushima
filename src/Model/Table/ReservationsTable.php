@@ -99,9 +99,7 @@ class ReservationsTable extends Table
         $table = TableRegistry::getTableLocator()->get('Yakushima.Rooms');
         $room = $table->newEntity([
             'reservation_id' => $entity->get('id'),
-            'name' => uniqid(),
-            'start' => null,
-            'end' => null,
+            'name' => uniqid($entity->get('id'), true),
         ]);
         $table->save($room);
     }
