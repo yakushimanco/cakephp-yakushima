@@ -1,6 +1,7 @@
 <?php
 namespace Yakushima\Model\Table;
 
+use Cake\I18n\Time;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -94,5 +95,25 @@ class SchedulesTable extends Table
         $rules->add($rules->existsIn(['user_id'], 'Users'));
 
         return $rules;
+    }
+
+    /**
+     * Returns the query as passed.
+     *
+     * By default findAll() applies no conditions, you
+     * can override this method in subclasses to modify how `find('all')` works.
+     *
+     * @param \Cake\ORM\Query $query The query to find with
+     * @param array $options The options to use for the find
+     * @return \Cake\ORM\Query The query builder
+     */
+    public function findFuture(Query $query, array $options)
+    {
+        $query
+            ->where([
+                'Schedules.start >' => Time::now()->i18nFormat('yyyy-MM-DD HH:mm:ss'),
+            ]);
+
+        return $query;
     }
 }
