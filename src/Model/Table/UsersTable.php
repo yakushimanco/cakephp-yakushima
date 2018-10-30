@@ -4,6 +4,7 @@ namespace Yakushima\Model\Table;
 
 use ArrayObject;
 use Cake\Event\Event;
+use Cake\ORM\Query;
 use Cake\Validation\Validator;
 use CakeDC\Users\Model\Table\UsersTable as BaseUsersTable;
 use Stripe\Account;
