@@ -82,6 +82,10 @@ class UsersTable extends BaseUsersTable
             ->allowEmpty('price_per_minutes');
 
         $validator
+            ->integer('point')
+            ->allowEmpty('point');
+
+        $validator
             ->scalar('stripe_account')
             ->maxLength('stripe_account', 255)
             ->notEmpty('stripe_account');
