@@ -9,8 +9,6 @@ use Cake\ORM\Entity;
  * @property string $id
  * @property string $reservation_id
  * @property string $name
- * @property \Cake\I18n\FrozenTime $start
- * @property \Cake\I18n\FrozenTime $end
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $modified
  *
@@ -31,8 +29,6 @@ class Room extends Entity
     protected $_accessible = [
         'reservation_id' => true,
         'name' => true,
-        'start' => true,
-        'end' => true,
         'created' => true,
         'modified' => true,
         'reservation' => true

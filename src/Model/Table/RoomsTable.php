@@ -66,14 +66,6 @@ class RoomsTable extends Table
             ->requirePresence('name', 'create')
             ->notEmpty('name');
 
-        $validator
-            ->dateTime('start')
-            ->allowEmpty('start');
-
-        $validator
-            ->dateTime('end')
-            ->allowEmpty('end');
-
         return $validator;
     }
 
