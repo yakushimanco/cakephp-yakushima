@@ -87,6 +87,7 @@ class RoomsTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['reservation_id'], 'Reservations'));
+        $rules->add($rules->isUnique(['name'], 'Reservations'));
 
         return $rules;
     }
