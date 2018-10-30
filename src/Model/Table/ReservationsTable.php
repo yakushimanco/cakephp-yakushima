@@ -96,7 +96,7 @@ class ReservationsTable extends Table
 
     public function afterSave(Event $event, EntityInterface $entity, ArrayObject $options)
     {
-        $table = TableRegistry::getTableLocator()->get('Rooms');
+        $table = TableRegistry::getTableLocator()->get('Yakushima.Rooms');
         $room = $table->newEntity([
             'reservation_id' => $entity->get('id'),
             'name' => uniqid(),
