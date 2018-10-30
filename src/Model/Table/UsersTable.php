@@ -31,6 +31,12 @@ use Yakushima\Model\Entity\User;
 class UsersTable extends BaseUsersTable
 {
     const ROLE_FORTUNE_TELLER = 'fortune-teller';
+
+    const GENDER_FEMALE = 'female';
+
+    const GENDER_MALE = 'male';
+
+    const GENDER_OTHER = 'other';
     
     /**
      * Initialize method
