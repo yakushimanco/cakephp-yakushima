@@ -5,6 +5,7 @@ namespace Yakushima\Model\Table;
 use ArrayObject;
 use Cake\Event\Event;
 use Cake\ORM\Query;
+use Cake\Routing\Router;
 use Cake\Validation\Validator;
 use CakeDC\Users\Model\Table\UsersTable as BaseUsersTable;
 use Stripe\Account;
@@ -154,6 +155,10 @@ class UsersTable extends BaseUsersTable
                 'type' => 'custom',
             ]);
             $customer = Customer::create();
+
+            $account->tos_acceptance->date = time();
+            $account->tos_acceptance->ip = Router::getRequest(true)->clientIp();
+            $account->save();
 
             $user->set('stripe_account', $account->id);
             $user->set('stripe_customer', $customer->id);
