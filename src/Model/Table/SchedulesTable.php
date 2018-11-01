@@ -111,7 +111,7 @@ class SchedulesTable extends Table
     {
         $query
             ->where([
-                'Schedules.start >' => Time::now()->i18nFormat('yyyy-MM-DD HH:mm:ss'),
+                'Schedules.start >' => Time::now()->i18nFormat('yyyy-MM-dd HH:mm:ss'),
             ]);
 
         return $query;
