@@ -120,4 +120,29 @@ class SchedulesTable extends Table
 
         return $query;
     }
+
+    /**
+     * Returns the query as passed.
+     *
+     * By default findAll() applies no conditions, you
+     * can override this method in subclasses to modify how `find('all')` works.
+     *
+     * @param \Cake\ORM\Query $query The query to find with
+     * @param array $options The options to use for the find
+     * @return \Cake\ORM\Query The query builder
+     */
+    public function findNow(Query $query, array $options)
+    {
+        $query
+            ->where([
+                'Schedules.start <=' => Time::now()->i18nFormat('yyyy-MM-dd HH:mm:ss'),
+                'Schedules.end >=' => Time::now()->i18nFormat('yyyy-MM-dd HH:mm:ss'),
+            ])
+            ->order([
+                'Schedules.start',
+                'Schedules.end',
+            ]);
+
+        return $query;
+    }
 }
