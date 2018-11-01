@@ -149,6 +149,7 @@ class UsersTable extends BaseUsersTable
     public function beforeSave(Event $event, User $user, ArrayObject $options)
     {
         if ($user->isNew()) {
+            $request = Router::getRequest(true);
             $account = Account::create([
                 'country' => "JP",
                 'email' => $user->get('email'),
@@ -156,8 +157,10 @@ class UsersTable extends BaseUsersTable
             ]);
             $customer = Customer::create();
 
+            $request->trustProxy = true;
+
             $account->tos_acceptance->date = time();
-            $account->tos_acceptance->ip = Router::getRequest(true)->clientIp();
+            $account->tos_acceptance->ip = $request->clientIp();
             $account->save();
 
             $user->set('stripe_account', $account->id);
