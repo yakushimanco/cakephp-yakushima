@@ -58,7 +58,7 @@ class ReservationsTable extends Table
             'joinType' => 'INNER',
             'className' => 'Yakushima.Schedules'
         ]);
-        $this->hasMany('Rooms', [
+        $this->hasOne('Rooms', [
             'foreignKey' => 'reservation_id',
             'className' => 'Yakushima.Rooms'
         ]);
