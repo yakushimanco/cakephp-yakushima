@@ -112,6 +112,10 @@ class SchedulesTable extends Table
         $query
             ->where([
                 'Schedules.start >' => Time::now()->i18nFormat('yyyy-MM-dd HH:mm:ss'),
+            ])
+            ->order([
+                'Schedules.start',
+                'Schedules.end',
             ]);
 
         return $query;
