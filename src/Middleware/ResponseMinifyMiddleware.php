@@ -1,8 +1,14 @@
 <?php
+
 namespace Yakushima\Middleware;
 
+use Cake\Event\Event;
+use Cake\Event\EventManager;
+use Cake\Http\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use voku\helper\HtmlMin;
+use Cake\Log\Log;
 
 /**
  * ResponseMinify middleware
@@ -20,6 +26,18 @@ class ResponseMinifyMiddleware
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $next)
     {
+        $callable = function (Event $event) {
+            $subject = $event->getSubject();
+            $response = $subject->response;
+            $request = $subject->request;
+            $body = $response->getBody();
+            $html = (new HtmlMin())->minify($body);
+            $subject->response = $response->withStringBody($html);
+        };
+
+        EventManager::instance()
+            ->on('Controller.shutdown', $callable);
+
         return $next($request, $response);
     }
 }
