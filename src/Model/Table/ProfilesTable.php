@@ -32,6 +32,9 @@ use Stripe\Customer;
  */
 class ProfilesTable extends Table
 {
+    const GENDER_FEMALE = 'female';
+    const GENDER_MALE = 'male';
+    const GENDER_OTHER = 'other';
 
     /**
      * Initialize method
