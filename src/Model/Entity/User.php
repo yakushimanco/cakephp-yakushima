@@ -13,13 +13,6 @@ use CakeDC\Users\Model\Entity\User as BaseUser;
  * @property string $password
  * @property string $first_name
  * @property string $last_name
- * @property string $gender
- * @property int $appraisal_years
- * @property string $catch_copy
- * @property string $profile
- * @property int $price_per_minutes
- * @property string $stripe_account
- * @property string $stripe_customer
  * @property string $token
  * @property \Cake\I18n\FrozenTime $token_expires
  * @property string $api_token

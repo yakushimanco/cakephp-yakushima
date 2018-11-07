@@ -5,6 +5,7 @@ namespace Yakushima\Model\Table;
 use ArrayObject;
 use Cake\Event\Event;
 use Cake\ORM\Query;
+use Cake\ORM\TableRegistry;
 use Cake\Routing\Router;
 use Cake\Validation\Validator;
 use CakeDC\Users\Model\Table\UsersTable as BaseUsersTable;
@@ -58,52 +59,10 @@ class UsersTable extends BaseUsersTable
             'foreignKey' => 'user_id',
             'className' => 'Yakushima.Schedules'
         ]);
-    }
-
-    /**
-     * Default validation rules.
-     *
-     * @param \Cake\Validation\Validator $validator Validator instance.
-     * @return \Cake\Validation\Validator
-     */
-    public function validationDefault(Validator $validator)
-    {
-        $validator
-            ->scalar('gender')
-            ->maxLength('gender', 10)
-            ->allowEmpty('gender');
-
-        $validator
-            ->integer('appraisal_years')
-            ->allowEmpty('appraisal_years');
-
-        $validator
-            ->scalar('catch_copy')
-            ->allowEmpty('catch_copy');
-
-        $validator
-            ->scalar('profile')
-            ->allowEmpty('profile');
-
-        $validator
-            ->integer('price_per_minutes')
-            ->allowEmpty('price_per_minutes');
-
-        $validator
-            ->integer('point')
-            ->allowEmpty('point');
-
-        $validator
-            ->scalar('stripe_account')
-            ->maxLength('stripe_account', 255)
-            ->notEmpty('stripe_account');
-
-        $validator
-            ->scalar('stripe_customer')
-            ->maxLength('stripe_customer', 255)
-            ->notEmpty('stripe_customer');
-
-        return $validator;
+        $this->hasOne('Profiles', [
+            'foreignKey' => 'user_id',
+            'className' => 'Yakushima.Profiles'
+        ]);
     }
 
     /**
@@ -146,25 +105,13 @@ class UsersTable extends BaseUsersTable
         return $query;
     }
 
-    public function beforeSave(Event $event, User $user, ArrayObject $options)
+    public function afterSave(Event $event, User $entity, ArrayObject $options)
     {
-        if ($user->isNew()) {
-            $request = Router::getRequest(true);
-            $account = Account::create([
-                'country' => "JP",
-                'email' => $user->get('email'),
-                'type' => 'custom',
-            ]);
-            $customer = Customer::create();
-
-            $request->trustProxy = true;
-
-            $account->tos_acceptance->date = time();
-            $account->tos_acceptance->ip = $request->clientIp();
-            $account->save();
-
-            $user->set('stripe_account', $account->id);
-            $user->set('stripe_customer', $customer->id);
+        if ($entity->isNew()) {
+            $table = TableRegistry::getTableLocator()->get('Yakushima.Profiles');
+            $profile = $table->newEntity();
+            $profile->set('user_id', $entity->get('id'));
+            $table->saveOrFail($profile);
         }
     }
 }
