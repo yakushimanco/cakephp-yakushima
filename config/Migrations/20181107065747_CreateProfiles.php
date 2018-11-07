@@ -24,28 +24,28 @@ class CreateProfiles extends AbstractMigration
         $table->addColumn('gender', 'string', [
             'default' => null,
             'limit' => 255,
-            'null' => false,
+            'null' => true,
         ]);
         $table->addColumn('appraisal_years', 'integer', [
             'default' => null,
             'limit' => 11,
-            'null' => false,
+            'null' => true,
         ]);
         $table->addColumn('catch_copy', 'text', [
             'default' => null,
-            'null' => false,
+            'null' => true,
         ]);
         $table->addColumn('profile', 'text', [
             'default' => null,
-            'null' => false,
+            'null' => true,
         ]);
         $table->addColumn('price_per_minutes', 'integer', [
             'default' => null,
             'limit' => 11,
-            'null' => false,
+            'null' => true,
         ]);
         $table->addColumn('point', 'integer', [
-            'default' => null,
+            'default' => 0,
             'limit' => 11,
             'null' => false,
         ]);
