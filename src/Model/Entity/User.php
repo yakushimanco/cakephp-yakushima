@@ -32,5 +32,13 @@ use CakeDC\Users\Model\Entity\User as BaseUser;
  */
 class User extends BaseUser
 {
+    protected $_virtual = ['full_name'];
 
+    protected function _getFullName()
+    {
+        $firstName = h($this->get('first_name'));
+        $lastName = h($this->get('last_name'));
+
+        return "{$lastName} {$firstName}";
+    }
 }
