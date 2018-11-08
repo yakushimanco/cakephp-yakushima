@@ -14,6 +14,7 @@ use Cake\ORM\Entity;
  * @property string $profile
  * @property int $price_per_minutes
  * @property int $point
+ * @property boolean $use_video
  * @property string $stripe_account
  * @property string $stripe_customer
  * @property \Cake\I18n\FrozenTime $created
@@ -34,17 +35,7 @@ class Profile extends Entity
      * @var array
      */
     protected $_accessible = [
-        'user_id' => true,
-        'gender' => true,
-        'appraisal_years' => true,
-        'catch_copy' => true,
-        'profile' => true,
-        'price_per_minutes' => true,
-        'point' => true,
-        'stripe_account' => true,
-        'stripe_customer' => true,
-        'created' => true,
-        'modified' => true,
-        'user' => true
+        '*' => true,
+        'id' => false,
     ];
 }

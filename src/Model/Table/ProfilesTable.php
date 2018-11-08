@@ -103,6 +103,10 @@ class ProfilesTable extends Table
             ->notEmpty('point');
 
         $validator
+            ->boolean('use_video')
+            ->allowEmpty('use_video');
+
+        $validator
             ->scalar('stripe_account')
             ->maxLength('stripe_account', 255)
             ->requirePresence('stripe_account', 'create')
